@@ -32,7 +32,7 @@ public class DepthFirstSearch {
         }
     }
     /**
-     * My implementation of a DFS that also implements constructing its graph
+     * My recursive implementation of a DFS that also implements constructing its graph
      * And it is supported by Robert Sedgewick's implementation except for the check of source == target.
      * Compare this with the isFound method below
      * */
