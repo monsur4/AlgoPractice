@@ -16,7 +16,7 @@ public class SelectionSort {
         }
     }
 
-    public static void swap(int[] arr, int i, int j){
+    private static void swap(int[] arr, int i, int j){
         int elementI = arr[i];
         int elementJ = arr[j];
 
