@@ -38,10 +38,9 @@ public class KruskalsAlgorithm {
         Queue<Edge> mst = new ArrayDeque<>();
         // create a collection of all edges
         List<Edge> edgeList = new ArrayList<>();
-        int edgeIndex = 0;
         for(int i=0; i<points.length; i++){
             for(int j=i+1; j<points.length; j++){
-                edgeList.add(new Edge(points[i], points[j], edgeIndex++));
+                edgeList.add(new Edge(points[i], points[j]));
             }
         }
 
@@ -95,11 +94,9 @@ public class KruskalsAlgorithm {
     class Edge implements Comparable<Edge>{
         final int[] p1, p2;
         final int distance;
-        final int edgeIndex;
-        public Edge(int[] p1, int[] p2, int edgeIndex){
+        public Edge(int[] p1, int[] p2){
             this.p1 = p1;
             this.p2 = p2;
-            this.edgeIndex = edgeIndex;
             this.distance = Math.abs(p1[0] - p2[0]) + Math.abs(p1[1] - p2[1]);
         }
 
@@ -108,7 +105,7 @@ public class KruskalsAlgorithm {
         }
 
         public String toString(){
-            return "p1: " + p1 + " p2: " + p2 + " distance: " + distance + " edgeIndex: " + edgeIndex;
+            return "p1: " + p1 + " p2: " + p2 + " distance: " + distance;
         }
     }
 
