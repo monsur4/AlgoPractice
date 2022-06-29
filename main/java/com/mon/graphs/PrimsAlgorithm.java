@@ -25,24 +25,18 @@ public class PrimsAlgorithm {
 
         // Prims Algorithm
         while((mst.size() < points.length - 1) && !pq.isEmpty()){
-
             // remove the lowest
             Edge e = pq.remove();// definitely on mst
-            // System.out.println(e.distance + " p1=" + e.p1 + " p2=" + e.p2);
-            if(!uf.isConnected(e.p1, e.p2)){
+            if(!uf.isConnected(e.p1, e.p2)) {
                 mst.add(e);
                 uf.union(e.p1, e.p2);
-            }
-
-            // add all the edges pointing from e.p2 to a non-tree vertex
-            for(int i = 0; i<points.length; i++){
-                if(!uf.isConnected(e.p2, i)){
-                    int distance = Math.abs(points[e.p2][0] - points[i][0]) +
-                            Math.abs(points[e.p2][1] - points[i][1]);
-                    pq.add(new Edge(e.p2, i, distance));
-
-                    // System.out.println("points");
-                    // System.out.println(" p2=" + e.p2 + " i=" + i);
+                // add all the edges pointing from e.p2 to a non-tree vertex
+                for (int i = 0; i < points.length; i++) {
+                    if (!uf.isConnected(e.p2, i)) {
+                        int distance = Math.abs(points[e.p2][0] - points[i][0]) +
+                                Math.abs(points[e.p2][1] - points[i][1]);
+                        pq.add(new Edge(e.p2, i, distance));
+                    }
                 }
             }
         }
