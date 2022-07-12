@@ -1,5 +1,6 @@
 package com.mon.graphs.shortestPath;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
@@ -34,9 +35,10 @@ public class DijkstrasAlgorithm {
         boolean[] visited = new boolean[n+1];
 
         // initialize distTo
-        for (int i=1; i<=n; i++){
-            distTo[i] = Integer.MAX_VALUE;
-        }
+//        for (int i=1; i<=n; i++){
+//            distTo[i] = Integer.MAX_VALUE;
+//        }
+        Arrays.fill(distTo, Integer.MAX_VALUE);
 
         PriorityQueue<Point> pq = new PriorityQueue<>((p, q) -> p.distTo - q.distTo);
         distTo[k] = 0; // dist to source
@@ -95,11 +97,18 @@ public class DijkstrasAlgorithm {
 
 /*
  * Complexity
- * pq.remove() => O(logV**) I could potentially add a vertex multiple times and therefore have to remove all
+ * pq.remove() => O(logE) Total number of elements that can be on the queue is equal to total Edges on the network
+ * But E = N(N-1) => O(logN^2) => O(2logN) => O(logN)
+ * pq.add() => O(logV**) I could potentially add a vertex multiple times if distTo keeps decreasing
+ * Although there could theoretically be any number of elements on the priority queue, once the node removed has been visited we simply continue.
+ * Therefore, we can only visit a node to view its adj nodes only once.
+ * Therefore, E edges could be traversed and for each edge, there could be one priority queue insertion operation
+ * ==> O(E.logN)
  * x
  * finding the next point => O(T) length of times[][] array
  * x
- * pq.add() => O(logV**) I could potentially add a vertex multiple times if distTo keeps decreasing
+ * finding the max time => O(N)
  *
- * Final Complexity = O(logV** x T x logV**)
+ * Final Complexity = O((E.logN x T) + N)
+ * NB: by using a hash map, I can remove the T in the time complexity above
  */
