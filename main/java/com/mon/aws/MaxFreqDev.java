@@ -1,5 +1,16 @@
 package com.mon.aws;
 
+/**
+ * Time complexity: O(26 * 26 * N) = O(N)
+ * Space complexity: O(1)
+ *
+ * NB: If you can guarantee that a nested for loop will run for a fixed
+ * amount of time, then you can guarantee that your algorithm's
+ * time complexity will not be affected.
+ * -this could mean that this implementation may be slower when the
+ * input size (N) is low. But in terms of order of growth,
+ * this algorithm has a linear time complexity and should pay off as N grows
+ */
 public class MaxFreqDev {
 
     public static int getMaxFreqDeviation(String s) {
@@ -10,7 +21,7 @@ public class MaxFreqDev {
                     int hiFreqCharCount = 0;
                     int loFreqCharCount = 0;
 
-                    boolean isLoFreqCharZero = false;
+                    boolean isLoFreqCharAbandoned = false;
 
                     for (char c : s.toCharArray()) {
                         if (c == hiFreqChar) hiFreqCharCount++;
@@ -18,14 +29,21 @@ public class MaxFreqDev {
 
                         if (loFreqCharCount > 0) {
                             sol = Math.max(sol, hiFreqCharCount - loFreqCharCount);
-                        } else if (isLoFreqCharZero) {
-                            sol = Math.max(sol, hiFreqCharCount - 1);
+                        } else {
+                            // Edge case: there are no `lowFreqChar` in current interval.
+                            // In case if we re-started Kadane algo calculation -
+                            // we can "extend" current interval with 1 previously abandoned 'lowFreqChar'
+                            if (isLoFreqCharAbandoned) {
+                                sol = Math.max(sol, hiFreqCharCount - 1);
+                            }
                         }
 
                         if (loFreqCharCount > hiFreqCharCount) {
+                            // Kadane's algo calculation re-start: abandon previous chars and their freqs.
+                            // Important: the last abandoned char is the `lowFreqChar` - this can be used on further iterations.
                             loFreqCharCount = 0;
                             hiFreqCharCount = 0;
-                            isLoFreqCharZero = true;
+                            isLoFreqCharAbandoned = true;
                         }
                     }
                 }
