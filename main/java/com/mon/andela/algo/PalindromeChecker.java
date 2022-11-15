@@ -6,7 +6,7 @@ import java.util.List;
  * @author Monsuru
  * @since Nov-13(Sun)-2022
  */
-public class Algo {
+public class PalindromeChecker {
     public static String panlindromeChecker(String s, List<Integer> startIndex, List<Integer> endIndex, List<Integer> subs) {
         int n = s.length();
         int[][] dp = new int[26][n];
